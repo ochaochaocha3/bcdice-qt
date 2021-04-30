@@ -16,7 +16,18 @@ public:
   MainWindow(QWidget* parent = nullptr);
   ~MainWindow();
 
+private slots:
+  void connectToIrcServer();
+  void getVersionInformation();
+
 private:
+  void createActions();
+  void createMenus();
+
   Ui::MainWindow* ui;
+
+  QAction* getVersionInformationAction;
+  QAction* getGameSystemListAction;
+  QAction* aboutQtAction;
 };
 #endif // MAINWINDOW_H
