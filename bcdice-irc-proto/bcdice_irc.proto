@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package bcdice_irc_proto;
+
+service BCDiceIRCService {
+  // Version はBCDice IRCおよび関連プログラムのバージョン情報を返す。
+  rpc Version(VersionRequest) returns (VersionResponse);
+  // GetDiceBotList は、ダイスボットの一覧を返す。
+  rpc GetDiceBotList(GetDiceBotListRequest) returns (GetDiceBotListResponse);
+  // Stop はサービスを停止する。
+  rpc Stop(StopRequest) returns (StopResponse);
+}
+
+message VersionRequest {}
+
+// VersionResponse は、BCDice IRCおよび関連プログラムのバージョン情報を含む応答。
+message VersionResponse {
+  // bcdice はBCDiceのバージョンを示す。
+  string bcdice = 1;
+  // bcdice_irc はBCDice IRCのバージョンを示す。
+  string bcdice_irc = 2;
+}
+
+message GetDiceBotListRequest {}
+
+// GetDiceBotListResponse は、ダイスボットの一覧を含む応答。
+message GetDiceBotListResponse {
+  // diceBots はダイスボットの一覧。
+  repeated DiceBot dice_bots = 1;
+}
+
+// DiceBot はダイスボットの情報を示す。
+message DiceBot {
+  // id はゲームシステムID。
+  string id = 1;
+  // name はゲームシステム名。
+  string name = 2;
+  // help_message は使い方の説明文。
+  string help_message = 3;
+}
+
+message StopRequest {}
+
+message StopResponse {}
