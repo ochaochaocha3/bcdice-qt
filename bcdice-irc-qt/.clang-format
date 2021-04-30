@@ -1,0 +1,8 @@
+---
+BasedOnStyle: LLVM
+BinPackArguments: 'false'
+BinPackParameters: 'false'
+PointerAlignment: Left
+Standard: Cpp11
+
+...
