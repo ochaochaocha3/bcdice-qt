@@ -1,4 +1,5 @@
 ---
+AllowShortFunctionsOnASingleLine: None
 BasedOnStyle: LLVM
 BinPackArguments: 'false'
 BinPackParameters: 'false'
