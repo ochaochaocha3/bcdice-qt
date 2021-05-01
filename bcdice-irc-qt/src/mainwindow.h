@@ -19,6 +19,7 @@ public:
 private slots:
   void connectToIrcServer();
   void getVersionInformation();
+  void aboutApp();
 
 private:
   void createActions();
@@ -28,6 +29,10 @@ private:
 
   QAction* getVersionInformationAction;
   QAction* getGameSystemListAction;
+  QAction* aboutAppAction;
   QAction* aboutQtAction;
+
+  QMenu* getMenu;
+  QMenu* helpMenu;
 };
 #endif // MAINWINDOW_H

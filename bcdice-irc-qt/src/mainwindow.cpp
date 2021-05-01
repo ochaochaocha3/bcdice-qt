@@ -25,30 +25,25 @@ MainWindow::~MainWindow() {
 void MainWindow::createActions() {
   getVersionInformationAction = new QAction{tr("&Version Information"), this};
   connect(getVersionInformationAction,
-          SIGNAL(triggered()),
+          &QAction::triggered,
           this,
-          SLOT(getVersionInformation()));
+          &MainWindow::getVersionInformation);
+
+  aboutAppAction = new QAction{tr("About.*"), this};
+  connect(aboutAppAction, &QAction::triggered, this, &MainWindow::aboutApp);
 
   aboutQtAction = new QAction{tr("About &Qt"), this};
   aboutQtAction->setStatusTip(tr("Show the Qt library's About box"));
-  connect(aboutQtAction, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
+  connect(aboutQtAction, &QAction::triggered, qApp, &QApplication::aboutQt);
 }
 
 void MainWindow::createMenus() {
-  QMenuBar* menuBar = new QMenuBar{this};
-  menuBar->setNativeMenuBar(false);
-
-  QMenu* getMenu = new QMenu{nullptr};
-  getMenu->setTitle(tr("&Get"));
+  getMenu = menuBar()->addMenu(tr("&Get"));
   getMenu->addAction(getVersionInformationAction);
-  menuBar->addMenu(getMenu);
 
-  QMenu* helpMenu = new QMenu{nullptr};
-  helpMenu->setTitle(tr("&Help"));
+  helpMenu = menuBar()->addMenu(tr("&Help"));
+  helpMenu->addAction(aboutAppAction);
   helpMenu->addAction(aboutQtAction);
-  menuBar->addMenu(helpMenu);
-
-  setMenuBar(menuBar);
 }
 
 void MainWindow::connectToIrcServer() {
@@ -59,4 +54,8 @@ void MainWindow::connectToIrcServer() {
 void MainWindow::getVersionInformation() {
   QMessageBox::information(
       this, tr("getVersionInformation"), tr("I get the version information"));
+}
+
+void MainWindow::aboutApp() {
+  QMessageBox::about(this, tr("About BCDice IRC"), tr("about-app-text"));
 }
