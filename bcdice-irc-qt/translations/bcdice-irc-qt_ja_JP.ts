@@ -44,47 +44,47 @@
         <translation type="unfinished">バージョン情報</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="24"/>
+        <location filename="../src/mainwindow.cpp" line="26"/>
         <source>&amp;Version Information</source>
         <translation type="unfinished">バージョン情報</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="28"/>
+        <location filename="../src/mainwindow.cpp" line="32"/>
         <source>About &amp;Qt</source>
         <translation type="unfinished">&amp;Qt について</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="29"/>
+        <location filename="../src/mainwindow.cpp" line="33"/>
         <source>Show the Qt library&apos;s About box</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="38"/>
+        <location filename="../src/mainwindow.cpp" line="42"/>
         <source>&amp;Get</source>
         <translation type="unfinished">取得</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="43"/>
+        <location filename="../src/mainwindow.cpp" line="47"/>
         <source>&amp;Help</source>
         <translation type="unfinished">ヘルプ</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="52"/>
+        <location filename="../src/mainwindow.cpp" line="56"/>
         <source>connectToIrcServer</source>
         <translation type="unfinished">IRCサーバへの接続</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="53"/>
+        <location filename="../src/mainwindow.cpp" line="56"/>
         <source>I connect to the IRC server</source>
         <translation type="unfinished">IRCサーバへ接続します</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="58"/>
+        <location filename="../src/mainwindow.cpp" line="61"/>
         <source>getVersionInformation</source>
         <translation type="unfinished">バージョン情報取得</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="59"/>
+        <location filename="../src/mainwindow.cpp" line="61"/>
         <source>I get the version information</source>
         <translation type="unfinished">バージョン情報を取得します</translation>
     </message>

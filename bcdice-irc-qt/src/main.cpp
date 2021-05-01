@@ -8,7 +8,7 @@ int main(int argc, char* argv[]) {
   QApplication a{argc, argv};
 
   QTranslator translator;
-  QString translationFile{"translations/bcdice-irc-qt_ja_JP"};
+  QString translationFile{":/translations/bcdice-irc-qt_ja_JP"};
   if (translator.load(translationFile)) {
     a.installTranslator(&translator);
   } else {
