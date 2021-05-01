@@ -39,8 +39,8 @@ set(PROJECT_SOURCES
 )
 
 # Proto file
-get_filename_component(bcdice_irc_proto "../bcdice-irc-proto/bcdice_irc.proto" ABSOLUTE)
-get_filename_component(bcdice_irc_proto_path "${bcdice_irc_proto}" PATH)
+get_filename_component(bcdice_irc_proto_path "../bcdice-irc-proto" ABSOLUTE)
+set(bcdice_info_proto "${bcdice_irc_proto_path}/bcdice_info.proto")
 
 # Generated sources
 set(bcdice_irc_proto_srcs    "${CMAKE_CURRENT_BINARY_DIR}/bcdice_irc.pb.cc")
@@ -69,8 +69,8 @@ add_custom_command(
     --cpp_out "${CMAKE_CURRENT_BINARY_DIR}"
     -I "${bcdice_irc_proto_path}"
     --plugin=protoc-gen-grpc="${_GRPC_CPP_PLUGIN_EXECUTABLE}"
-    "${bcdice_irc_proto}"
-  DEPENDS "${bcdice_irc_proto}")
+    "${bcdice_info_proto}"
+  DEPENDS "${bcdice_info_proto}")
 
 # Include generated *.pb.h files
 include_directories("${CMAKE_CURRENT_BINARY_DIR}")
