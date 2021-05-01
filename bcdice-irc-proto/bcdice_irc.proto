@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package bcdice_irc_proto;
 
-service BCDiceIRCService {
+service BCDiceInfoService {
   // Version はBCDice IRCおよび関連プログラムのバージョン情報を返す。
   rpc Version(VersionRequest) returns (VersionResponse);
   // GetDiceBotList は、ダイスボットの一覧を返す。
