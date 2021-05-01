@@ -31,6 +31,9 @@ set(SRC_FILES
         src/mainwindow.cpp
         src/mainwindow.h
         src/mainwindow.ui
+        src/bcdiceinfoclient.cpp
+        src/bcdiceinfoclient.h
+        src/bcdiceversioninfo.h
 )
 
 set(PROJECT_SOURCES
@@ -43,10 +46,10 @@ get_filename_component(bcdice_irc_proto_path "../bcdice-irc-proto" ABSOLUTE)
 set(bcdice_info_proto "${bcdice_irc_proto_path}/bcdice_info.proto")
 
 # Generated sources
-set(bcdice_irc_proto_srcs    "${CMAKE_CURRENT_BINARY_DIR}/bcdice_irc.pb.cc")
-set(bcdice_irc_proto_headers "${CMAKE_CURRENT_BINARY_DIR}/bcdice_irc.pb.h")
-set(bcdice_irc_grpc_srcs     "${CMAKE_CURRENT_BINARY_DIR}/bcdice_irc.grpc.pb.cc")
-set(bcdice_irc_grpc_headers  "${CMAKE_CURRENT_BINARY_DIR}/bcdice_irc.grpc.pb.h")
+set(bcdice_irc_proto_srcs    "${CMAKE_CURRENT_BINARY_DIR}/bcdice_info.pb.cc")
+set(bcdice_irc_proto_headers "${CMAKE_CURRENT_BINARY_DIR}/bcdice_info.pb.h")
+set(bcdice_irc_grpc_srcs     "${CMAKE_CURRENT_BINARY_DIR}/bcdice_info.grpc.pb.cc")
+set(bcdice_irc_grpc_headers  "${CMAKE_CURRENT_BINARY_DIR}/bcdice_info.grpc.pb.h")
 
 foreach(_target
   "${bcdice_irc_proto_srcs}"
@@ -75,15 +78,17 @@ add_custom_command(
 # Include generated *.pb.h files
 include_directories("${CMAKE_CURRENT_BINARY_DIR}")
 
-add_library(bcdice_irc_grpc_proto
+include_directories(${Protobuf_INCLUDE_DIRS})
+
+add_library(bcdice_irc_grpc_proto STATIC
   ${bcdice_irc_grpc_srcs}
   ${bcdice_irc_grpc_headers}
   ${bcdice_irc_proto_srcs}
   ${bcdice_irc_proto_headers})
 target_link_libraries(bcdice_irc_grpc_proto
-  ${_REFLECTION}
-  ${_GRPC_GRPCPP}
-  ${_PROTOBUF_LIBPROTOBUF})
+  INTERFACE ${_REFLECTION}
+  INTERFACE ${_GRPC_GRPCPP}
+  INTERFACE ${_PROTOBUF_LIBPROTOBUF})
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR}/translations ${SRC_FILES} ${TS_FILES})
@@ -102,9 +107,6 @@ else()
 endif()
 
 target_link_libraries(${APP_NAME}
-  INTERFACE bcdice_irc_grpc_proto
-  INTERFACE ${_REFLECTION}
-  INTERFACE ${_GRPC_GRPCPP}
-  INTERFACE ${_PROTOBUF_LIBPROTOBUF}
+  PRIVATE bcdice_irc_grpc_proto
   PRIVATE Qt${QT_VERSION_MAJOR}::Widgets
 )

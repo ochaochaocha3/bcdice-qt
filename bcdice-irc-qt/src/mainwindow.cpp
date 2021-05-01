@@ -1,12 +1,30 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 
+#include <iostream>
+#include <sstream>
+
 #include <QMenuBar>
 #include <QMessageBox>
-#include <iostream>
+
+#include <grpcpp/grpcpp.h>
+
+#include "bcdiceinfoclient.h"
+
+namespace {
+const char* GRPCServerHost = "localhost:50051";
+}
 
 MainWindow::MainWindow(QWidget* parent)
-    : QMainWindow(parent), ui(new Ui::MainWindow) {
+    : QMainWindow(parent), ui(new Ui::MainWindow),
+      getVersionInformationAction_{},
+      getGameSystemListAction_{},
+      aboutAppAction_{},
+      aboutQtAction_{},
+      getMenu_{},
+      helpMenu_{},
+      bcdiceVersionInfo_{}
+{
   ui->setupUi(this);
 
   connect(ui->connectDisconnectPushButton,
@@ -16,6 +34,8 @@ MainWindow::MainWindow(QWidget* parent)
 
   createActions();
   createMenus();
+
+  fetchVersionInformation();
 }
 
 MainWindow::~MainWindow() {
@@ -23,27 +43,27 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::createActions() {
-  getVersionInformationAction = new QAction{tr("&Version Information"), this};
-  connect(getVersionInformationAction,
+  getVersionInformationAction_ = new QAction{tr("&Version Information"), this};
+  connect(getVersionInformationAction_,
           &QAction::triggered,
           this,
-          &MainWindow::getVersionInformation);
+          &MainWindow::fetchVersionInformation);
 
-  aboutAppAction = new QAction{tr("About.*"), this};
-  connect(aboutAppAction, &QAction::triggered, this, &MainWindow::aboutApp);
+  aboutAppAction_ = new QAction{tr("About.*"), this};
+  connect(aboutAppAction_, &QAction::triggered, this, &MainWindow::aboutApp);
 
-  aboutQtAction = new QAction{tr("About &Qt"), this};
-  aboutQtAction->setStatusTip(tr("Show the Qt library's About box"));
-  connect(aboutQtAction, &QAction::triggered, qApp, &QApplication::aboutQt);
+  aboutQtAction_ = new QAction{tr("About &Qt"), this};
+  aboutQtAction_->setStatusTip(tr("Show the Qt library's About box"));
+  connect(aboutQtAction_, &QAction::triggered, qApp, &QApplication::aboutQt);
 }
 
 void MainWindow::createMenus() {
-  getMenu = menuBar()->addMenu(tr("&Get"));
-  getMenu->addAction(getVersionInformationAction);
+  getMenu_ = menuBar()->addMenu(tr("&Get"));
+  getMenu_->addAction(getVersionInformationAction_);
 
-  helpMenu = menuBar()->addMenu(tr("&Help"));
-  helpMenu->addAction(aboutAppAction);
-  helpMenu->addAction(aboutQtAction);
+  helpMenu_ = menuBar()->addMenu(tr("&Help"));
+  helpMenu_->addAction(aboutAppAction_);
+  helpMenu_->addAction(aboutQtAction_);
 }
 
 void MainWindow::connectToIrcServer() {
@@ -51,11 +71,39 @@ void MainWindow::connectToIrcServer() {
       this, tr("connectToIrcServer"), tr("I connect to the IRC server"));
 }
 
-void MainWindow::getVersionInformation() {
-  QMessageBox::information(
-      this, tr("getVersionInformation"), tr("I get the version information"));
+void MainWindow::fetchVersionInformation() {
+  auto channel = grpc::CreateChannel(GRPCServerHost,
+                                     grpc::InsecureChannelCredentials());
+  BCDiceInfoClient client{channel};
+
+  auto [versionInfo, status] = client.getBCDiceVersionInfo();
+
+  if (!versionInfo) {
+    std::stringstream ss;
+
+    ss << __func__ << ": [" << status.error_code() << "] " <<
+          status.error_message();
+    qWarning() << ss.str().c_str();
+  }
+
+  updateVersionInformation(versionInfo);
 }
 
 void MainWindow::aboutApp() {
   QMessageBox::about(this, tr("About BCDice IRC"), tr("about-app-text"));
+}
+
+void MainWindow::updateVersionInformation(const std::optional<BCDiceVersionInfo> versionInfo) {
+  const char* copyright = "<p>&copy; BCDice Project</p>";
+  if (!versionInfo) {
+    ui->versionLabel->setText(copyright);
+    return;
+  }
+
+  std::stringstream ss;
+  ss << "<p>BCDice IRC v" << versionInfo->bcdiceIrcVersion << ", " <<
+        "BCDice v" << versionInfo->bcdiceVersion << "</p>" << std::endl <<
+        copyright;
+
+  ui->versionLabel->setText(ss.str().c_str());
 }

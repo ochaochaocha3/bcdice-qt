@@ -1,7 +1,11 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <optional>
+
 #include <QMainWindow>
+
+#include "bcdiceversioninfo.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -18,7 +22,8 @@ public:
 
 private slots:
   void connectToIrcServer();
-  void getVersionInformation();
+  void fetchVersionInformation();
+  void updateVersionInformation(const std::optional<BCDiceVersionInfo> versionInfo);
   void aboutApp();
 
 private:
@@ -27,12 +32,14 @@ private:
 
   Ui::MainWindow* ui;
 
-  QAction* getVersionInformationAction;
-  QAction* getGameSystemListAction;
-  QAction* aboutAppAction;
-  QAction* aboutQtAction;
+  QAction* getVersionInformationAction_;
+  QAction* getGameSystemListAction_;
+  QAction* aboutAppAction_;
+  QAction* aboutQtAction_;
 
-  QMenu* getMenu;
-  QMenu* helpMenu;
+  QMenu* getMenu_;
+  QMenu* helpMenu_;
+
+  std::optional<BCDiceVersionInfo> bcdiceVersionInfo_;
 };
 #endif // MAINWINDOW_H
