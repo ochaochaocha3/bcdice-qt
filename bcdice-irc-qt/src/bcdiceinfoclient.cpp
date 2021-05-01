@@ -1,7 +1,7 @@
 #include "bcdiceinfoclient.h"
 
-#include <memory>
 #include <chrono>
+#include <memory>
 
 #include <grpcpp/grpcpp.h>
 
@@ -15,17 +15,16 @@ using grpc::Status;
 
 using bcdice_irc_proto::BCDiceInfoService;
 
-using std::chrono::time_point;
-using std::chrono::system_clock;
 using std::chrono::milliseconds;
+using std::chrono::system_clock;
+using std::chrono::time_point;
 
 namespace {
 constexpr int DeadlineMs = 200;
 }
 
 BCDiceInfoClient::BCDiceInfoClient(std::shared_ptr<Channel> channel)
-  : stub_{BCDiceInfoService::NewStub(channel)}
-{
+    : stub_{BCDiceInfoService::NewStub(channel)} {
 }
 
 StatusWith<BCDiceVersionInfo> BCDiceInfoClient::getBCDiceVersionInfo() {

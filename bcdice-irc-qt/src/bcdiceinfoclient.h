@@ -10,19 +10,17 @@
 
 #include "bcdiceversioninfo.h"
 
+using bcdice_irc_proto::BCDiceInfoService;
 using grpc::Channel;
 using grpc::ClientContext;
 using grpc::Status;
-using bcdice_irc_proto::BCDiceInfoService;
 
-template <typename T>
-using StatusWith = std::pair<std::optional<T>, Status>;
+template <typename T> using StatusWith = std::pair<std::optional<T>, Status>;
 
 class BCDiceInfoClient {
 public:
   BCDiceInfoClient(std::shared_ptr<Channel> channel);
   StatusWith<BCDiceVersionInfo> getBCDiceVersionInfo();
-
 
 private:
   std::unique_ptr<BCDiceInfoService::Stub> stub_;

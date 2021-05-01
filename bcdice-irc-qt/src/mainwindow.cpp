@@ -16,15 +16,10 @@ const char* GRPCServerHost = "localhost:50051";
 }
 
 MainWindow::MainWindow(QWidget* parent)
-    : QMainWindow(parent), ui(new Ui::MainWindow),
-      getVersionInformationAction_{},
-      getGameSystemListAction_{},
-      aboutAppAction_{},
-      aboutQtAction_{},
-      getMenu_{},
-      helpMenu_{},
-      bcdiceVersionInfo_{}
-{
+    : QMainWindow(parent),
+      ui(new Ui::MainWindow), getVersionInformationAction_{},
+      getGameSystemListAction_{}, aboutAppAction_{},
+      aboutQtAction_{}, getMenu_{}, helpMenu_{}, bcdiceVersionInfo_{} {
   ui->setupUi(this);
 
   connect(ui->connectDisconnectPushButton,
@@ -72,8 +67,8 @@ void MainWindow::connectToIrcServer() {
 }
 
 void MainWindow::fetchVersionInformation() {
-  auto channel = grpc::CreateChannel(GRPCServerHost,
-                                     grpc::InsecureChannelCredentials());
+  auto channel =
+      grpc::CreateChannel(GRPCServerHost, grpc::InsecureChannelCredentials());
   BCDiceInfoClient client{channel};
 
   auto [versionInfo, status] = client.getBCDiceVersionInfo();
@@ -81,8 +76,8 @@ void MainWindow::fetchVersionInformation() {
   if (!versionInfo) {
     std::stringstream ss;
 
-    ss << __func__ << ": [" << status.error_code() << "] " <<
-          status.error_message();
+    ss << __func__ << ": [" << status.error_code() << "] "
+       << status.error_message();
     qWarning() << ss.str().c_str();
   }
 
@@ -93,7 +88,8 @@ void MainWindow::aboutApp() {
   QMessageBox::about(this, tr("About BCDice IRC"), tr("about-app-text"));
 }
 
-void MainWindow::updateVersionInformation(const std::optional<BCDiceVersionInfo> versionInfo) {
+void MainWindow::updateVersionInformation(
+    const std::optional<BCDiceVersionInfo> versionInfo) {
   const char* copyright = "<p>&copy; BCDice Project</p>";
   if (!versionInfo) {
     ui->versionLabel->setText(copyright);
@@ -101,9 +97,9 @@ void MainWindow::updateVersionInformation(const std::optional<BCDiceVersionInfo>
   }
 
   std::stringstream ss;
-  ss << "<p>BCDice IRC v" << versionInfo->bcdiceIrcVersion << ", " <<
-        "BCDice v" << versionInfo->bcdiceVersion << "</p>" << std::endl <<
-        copyright;
+  ss << "<p>BCDice IRC v" << versionInfo->bcdiceIrcVersion << ", "
+     << "BCDice v" << versionInfo->bcdiceVersion << "</p>" << std::endl
+     << copyright;
 
   ui->versionLabel->setText(ss.str().c_str());
 }

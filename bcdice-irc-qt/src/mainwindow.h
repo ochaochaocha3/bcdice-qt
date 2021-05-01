@@ -23,7 +23,8 @@ public:
 private slots:
   void connectToIrcServer();
   void fetchVersionInformation();
-  void updateVersionInformation(const std::optional<BCDiceVersionInfo> versionInfo);
+  void
+  updateVersionInformation(const std::optional<BCDiceVersionInfo> versionInfo);
   void aboutApp();
 
 private:
