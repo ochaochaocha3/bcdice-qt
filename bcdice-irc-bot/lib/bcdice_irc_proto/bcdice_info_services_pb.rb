@@ -14,8 +14,8 @@ module BcdiceIrcProto
       self.unmarshal_class_method = :decode
       self.service_name = 'bcdice_irc_proto.BCDiceInfoService'
 
-      # Version はBCDice IRCおよび関連プログラムのバージョン情報を返す。
-      rpc :Version, ::BcdiceIrcProto::VersionRequest, ::BcdiceIrcProto::VersionResponse
+      # GetBCDiceVersionInfo はBCDice IRCおよび関連プログラムのバージョン情報を返す。
+      rpc :GetBCDiceVersionInfo, ::BcdiceIrcProto::GetBCDiceVersionInfoRequest, ::BcdiceIrcProto::GetBCDiceVersionInfoResponse
       # GetDiceBotList は、ダイスボットの一覧を返す。
       rpc :GetDiceBotList, ::BcdiceIrcProto::GetDiceBotListRequest, ::BcdiceIrcProto::GetDiceBotListResponse
       # Stop はサービスを停止する。

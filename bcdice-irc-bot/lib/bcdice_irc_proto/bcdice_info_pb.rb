@@ -5,11 +5,11 @@ require 'google/protobuf'
 
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("bcdice_info.proto", :syntax => :proto3) do
-    add_message "bcdice_irc_proto.VersionRequest" do
+    add_message "bcdice_irc_proto.GetBCDiceVersionInfoRequest" do
     end
-    add_message "bcdice_irc_proto.VersionResponse" do
-      optional :bcdice, :string, 1
-      optional :bcdice_irc, :string, 2
+    add_message "bcdice_irc_proto.GetBCDiceVersionInfoResponse" do
+      optional :bcdice_version, :string, 1
+      optional :bcdice_irc_version, :string, 2
     end
     add_message "bcdice_irc_proto.GetDiceBotListRequest" do
     end
@@ -24,13 +24,14 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     add_message "bcdice_irc_proto.StopRequest" do
     end
     add_message "bcdice_irc_proto.StopResponse" do
+      optional :ok, :bool, 1
     end
   end
 end
 
 module BcdiceIrcProto
-  VersionRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("bcdice_irc_proto.VersionRequest").msgclass
-  VersionResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("bcdice_irc_proto.VersionResponse").msgclass
+  GetBCDiceVersionInfoRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("bcdice_irc_proto.GetBCDiceVersionInfoRequest").msgclass
+  GetBCDiceVersionInfoResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("bcdice_irc_proto.GetBCDiceVersionInfoResponse").msgclass
   GetDiceBotListRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("bcdice_irc_proto.GetDiceBotListRequest").msgclass
   GetDiceBotListResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("bcdice_irc_proto.GetDiceBotListResponse").msgclass
   DiceBot = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("bcdice_irc_proto.DiceBot").msgclass

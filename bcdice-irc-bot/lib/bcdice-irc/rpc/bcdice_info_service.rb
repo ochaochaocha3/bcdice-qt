@@ -26,11 +26,11 @@ module BCDiceIRC
         @dice_bot_wrappers = dice_bots.map { |b| DiceBotWrapper.wrap(b) }
       end
 
-      # Version はBCDice IRCおよび関連プログラムのバージョン情報を返す
-      def version(_request, _call)
-        Proto::VersionResponse.new(
-          bcdice: BCDice::VERSION,
-          bcdice_irc: BCDiceIRC::VERSION
+      # GetBCDiceVersionInfo はBCDice IRCおよび関連プログラムのバージョン情報を返す。
+      def get_bc_dice_version_info(_request, _call)
+        Proto::GetBCDiceVersionInfoResponse.new(
+          bcdice_version: BCDice::VERSION,
+          bcdice_irc_version: BCDiceIRC::VERSION
         )
       end
 
@@ -50,7 +50,9 @@ module BCDiceIRC
       # Stop はサービスを停止する
       def stop(_request, _call)
         @server.stop
-        Proto::StopResponse.new
+        Proto::StopResponse.new(
+          ok: true
+        )
       end
     end
   end

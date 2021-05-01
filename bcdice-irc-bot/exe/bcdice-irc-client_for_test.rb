@@ -57,6 +57,12 @@ opts.on('-h', '--host', '<hostname>:<port>') do |value|
   host = value
 end
 
+opts.on('--list-commands', 'list available commands') do
+  commands = %w(version dicebots stop)
+  puts(commands)
+  exit
+end
+
 opts.parse!
 
 command = ARGV[0]
@@ -73,22 +79,22 @@ stub = Proto::BCDiceInfoService::Stub.new(
 )
 
 def on_version(stub)
-  response = stub.version(Proto::VersionRequest.new)
+  response = stub.get_bc_dice_version_info(Proto::GetBCDiceVersionInfoRequest.new)
 
-  puts("BCDice: #{response.bcdice}")
-  puts("BCDice IRC: #{response.bcdice_irc}")
+  puts("BCDice: #{response.bcdice_version}")
+  puts("BCDice IRC: #{response.bcdice_irc_version}")
 end
 
 def on_stop(stub)
   response = stub.stop(Proto::StopRequest.new)
-  puts('OK')
+  puts(response.ok ? 'OK' : 'Error')
 end
 
 def on_dicebots(stub)
   response = stub.get_dice_bot_list(Proto::GetDiceBotListRequest.new)
 
   game_system_name_id_list = response.dice_bots.map { |d|
-    "#{d.name}（#{d.id}）"
+    "#{d.name} (#{d.id}) [help: #{d.help_message.lines.length} lines]"
   }
 
   puts(game_system_name_id_list)

@@ -3,29 +3,29 @@ syntax = "proto3";
 package bcdice_irc_proto;
 
 service BCDiceInfoService {
-  // Version はBCDice IRCおよび関連プログラムのバージョン情報を返す。
-  rpc Version(VersionRequest) returns (VersionResponse);
+  // GetBCDiceVersionInfo はBCDice IRCおよび関連プログラムのバージョン情報を返す。
+  rpc GetBCDiceVersionInfo(GetBCDiceVersionInfoRequest) returns (GetBCDiceVersionInfoResponse);
   // GetDiceBotList は、ダイスボットの一覧を返す。
   rpc GetDiceBotList(GetDiceBotListRequest) returns (GetDiceBotListResponse);
   // Stop はサービスを停止する。
   rpc Stop(StopRequest) returns (StopResponse);
 }
 
-message VersionRequest {}
+message GetBCDiceVersionInfoRequest {}
 
-// VersionResponse は、BCDice IRCおよび関連プログラムのバージョン情報を含む応答。
-message VersionResponse {
-  // bcdice はBCDiceのバージョンを示す。
-  string bcdice = 1;
-  // bcdice_irc はBCDice IRCのバージョンを示す。
-  string bcdice_irc = 2;
+// GetBCDiceVersionInfoResponse は、BCDice IRCおよび関連プログラムのバージョン情報を含む応答。
+message GetBCDiceVersionInfoResponse {
+  // bcdice_version はBCDiceのバージョンを示す。
+  string bcdice_version = 1;
+  // bcdice_irc_version はBCDice IRCのバージョンを示す。
+  string bcdice_irc_version = 2;
 }
 
 message GetDiceBotListRequest {}
 
 // GetDiceBotListResponse は、ダイスボットの一覧を含む応答。
 message GetDiceBotListResponse {
-  // diceBots はダイスボットの一覧。
+  // dice_bots はダイスボットの一覧。
   repeated DiceBot dice_bots = 1;
 }
 
@@ -41,4 +41,8 @@ message DiceBot {
 
 message StopRequest {}
 
-message StopResponse {}
+// StopResponse はサービス停止についての応答。
+message StopResponse {
+  // ok は正常にサービスを終了できたか。
+  bool ok = 1;
+}
