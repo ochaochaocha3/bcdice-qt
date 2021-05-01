@@ -1,0 +1,31 @@
+Layout/LineLength:
+  Exclude:
+    - Rakefile
+
+# Offense count: 6
+# Configuration parameters: IgnoredMethods.
+Metrics/AbcSize:
+  Max: 31
+
+# Offense count: 4
+# Configuration parameters: CountComments.
+Metrics/ClassLength:
+  Max: 300
+
+# Offense count: 1
+# Configuration parameters: IgnoredMethods.
+Metrics/CyclomaticComplexity:
+  Max: 8
+
+# Offense count: 3
+# Configuration parameters: EnforcedStyle, IgnoredPatterns.
+# SupportedStyles: snake_case, camelCase
+#
+# BCDice本体からの呼び出しによる制約。
+Naming/MethodName:
+  Exclude:
+    - 'lib/bcdice-irc/irc_message_sink.rb'
+
+Style/GlobalVars:
+  Exclude:
+    - 'lib/bcdice-irc/irc_bot_plugin/help_command.rb'

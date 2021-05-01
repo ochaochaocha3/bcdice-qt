@@ -1,0 +1,34 @@
+# frozen_string_literal: true
+
+source 'https://rubygems.org'
+git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
+
+ruby '>= 2.7.0'
+
+# IRCボットフレームワーク
+gem 'mcinch', '>= 2.4'
+
+gem 'activesupport'
+
+# RPC用
+gem 'grpc'
+gem 'grpc-tools'
+
+group :development, :test do
+  gem 'rake'
+end
+
+group :development do
+  gem 'rubocop', require: false
+
+  gem 'byebug'
+
+  gem 'redcarpet'
+  gem 'yard'
+end
+
+group :test do
+  gem 'test-unit'
+
+  gem 'cinch-test', github: 'cre-ne-jp/cinch-test'
+end

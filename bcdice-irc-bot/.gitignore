@@ -1,0 +1,13 @@
+*~
+
+.bundle
+.ruby-version
+vendor/bundle
+.byebug_history
+
+.yardoc/
+doc/
+
+config/*.yaml
+
+/archive-*
