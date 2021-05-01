@@ -4,8 +4,10 @@
 #include <optional>
 
 #include <QMainWindow>
+#include <QStandardItemModel>
 
 #include "bcdiceversioninfo.h"
+#include "gamesystem.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -27,8 +29,10 @@ private slots:
   void stopServer();
   void connectToIrcServer();
   void fetchVersionInformation();
+  void fetchGameSystemList();
   void
   updateVersionInformation(const std::optional<BCDiceVersionInfo> versionInfo);
+  void updateHelpMessage(int index);
   void aboutApp();
 
 private:
@@ -37,12 +41,12 @@ private:
 
   Ui::MainWindow* ui;
 
-  QAction* getVersionInformationAction_;
-  QAction* getGameSystemListAction_;
+  QAction* fetchVersionInformationAction_;
+  QAction* fetchGameSystemListAction_;
   QAction* aboutAppAction_;
   QAction* aboutQtAction_;
 
-  QMenu* getMenu_;
+  QMenu* fetchMenu_;
   QMenu* helpMenu_;
 
   std::optional<BCDiceVersionInfo> bcdiceVersionInfo_;

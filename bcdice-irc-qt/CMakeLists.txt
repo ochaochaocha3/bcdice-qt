@@ -34,6 +34,8 @@ set(SRC_FILES
         src/bcdiceinfoclient.cpp
         src/bcdiceinfoclient.h
         src/bcdiceversioninfo.h
+        src/gamesystem.cpp
+        src/gamesystem.h
 )
 
 set(PROJECT_SOURCES

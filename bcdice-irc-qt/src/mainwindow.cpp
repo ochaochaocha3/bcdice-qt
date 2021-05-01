@@ -1,9 +1,12 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 
+#include <algorithm>
 #include <iostream>
 #include <sstream>
 
+#include <QAction>
+#include <QApplication>
 #include <QMenuBar>
 #include <QMessageBox>
 
@@ -17,18 +20,22 @@ const char* GRPCServerHost = "localhost:50051";
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent),
-      ui(new Ui::MainWindow), getVersionInformationAction_{},
-      getGameSystemListAction_{}, aboutAppAction_{},
-      aboutQtAction_{}, getMenu_{}, helpMenu_{}, bcdiceVersionInfo_{} {
+      ui(new Ui::MainWindow), fetchVersionInformationAction_{},
+      fetchGameSystemListAction_{}, aboutAppAction_{}, aboutQtAction_{},
+      fetchMenu_{}, helpMenu_{}, bcdiceVersionInfo_{} {
   ui->setupUi(this);
+
+  createActions();
+  createMenus();
 
   connect(ui->connectDisconnectPushButton,
           &QPushButton::clicked,
           this,
           &MainWindow::connectToIrcServer);
-
-  createActions();
-  createMenus();
+  connect(ui->gameSystemComboBox,
+          &QComboBox::currentIndexChanged,
+          this,
+          &MainWindow::updateHelpMessage);
 
   fetchVersionInformation();
 }
@@ -42,11 +49,18 @@ void MainWindow::closeEvent(QCloseEvent*) {
 }
 
 void MainWindow::createActions() {
-  getVersionInformationAction_ = new QAction{tr("&Version Information"), this};
-  connect(getVersionInformationAction_,
+  fetchVersionInformationAction_ =
+      new QAction{tr("&Version Information"), this};
+  connect(fetchVersionInformationAction_,
           &QAction::triggered,
           this,
           &MainWindow::fetchVersionInformation);
+
+  fetchGameSystemListAction_ = new QAction{tr("&Game System List")};
+  connect(fetchGameSystemListAction_,
+          &QAction::triggered,
+          this,
+          &MainWindow::fetchGameSystemList);
 
   aboutAppAction_ = new QAction{tr("About.*"), this};
   connect(aboutAppAction_, &QAction::triggered, this, &MainWindow::aboutApp);
@@ -57,8 +71,9 @@ void MainWindow::createActions() {
 }
 
 void MainWindow::createMenus() {
-  getMenu_ = menuBar()->addMenu(tr("&Get"));
-  getMenu_->addAction(getVersionInformationAction_);
+  fetchMenu_ = menuBar()->addMenu(tr("&Fetch"));
+  fetchMenu_->addAction(fetchVersionInformationAction_);
+  fetchMenu_->addAction(fetchGameSystemListAction_);
 
   helpMenu_ = menuBar()->addMenu(tr("&Help"));
   helpMenu_->addAction(aboutAppAction_);
@@ -113,6 +128,31 @@ void MainWindow::fetchVersionInformation() {
   updateVersionInformation(versionInfo);
 }
 
+void MainWindow::fetchGameSystemList() {
+  auto channel =
+      grpc::CreateChannel(GRPCServerHost, grpc::InsecureChannelCredentials());
+  BCDiceInfoClient client{channel};
+
+  auto [gameSystemList, status] = client.getDiceBotList();
+
+  if (!gameSystemList) {
+    std::stringstream ss;
+
+    ss << __func__ << ": [" << status.error_code() << "] "
+       << status.error_message();
+    qWarning() << ss.str().c_str();
+
+    return;
+  }
+
+  ui->gameSystemComboBox->clear();
+
+  for (const auto& g : *gameSystemList) {
+    ui->gameSystemComboBox->addItem(QString::fromStdString(g.name),
+                                    QVariant::fromValue(g));
+  }
+}
+
 void MainWindow::aboutApp() {
   QMessageBox::about(this, tr("About BCDice IRC"), tr("about-app-text"));
 }
@@ -131,4 +171,15 @@ void MainWindow::updateVersionInformation(
      << copyright;
 
   ui->versionLabel->setText(ss.str().c_str());
+}
+
+void MainWindow::updateHelpMessage(int index) {
+  if (index < 0) {
+    ui->helpMessagePlainTextEdit->clear();
+    return;
+  }
+
+  const auto& g = ui->gameSystemComboBox->currentData().value<GameSystem>();
+  ui->helpMessagePlainTextEdit->setPlainText(
+      QString::fromStdString(g.helpMessage));
 }

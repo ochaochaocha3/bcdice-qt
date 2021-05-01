@@ -44,42 +44,51 @@
         <translation type="unfinished">バージョン情報</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="45"/>
+        <location filename="../src/mainwindow.cpp" line="53"/>
         <source>&amp;Version Information</source>
         <translation type="unfinished">バージョン情報</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="51"/>
+        <location filename="../src/mainwindow.cpp" line="59"/>
+        <source>&amp;Game System List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="65"/>
         <source>About.*</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="54"/>
+        <location filename="../src/mainwindow.cpp" line="68"/>
         <source>About &amp;Qt</source>
         <translation type="unfinished">&amp;Qt について</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="55"/>
+        <location filename="../src/mainwindow.cpp" line="69"/>
         <source>Show the Qt library&apos;s About box</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="60"/>
-        <source>&amp;Get</source>
-        <translation type="unfinished">取得</translation>
+        <location filename="../src/mainwindow.cpp" line="74"/>
+        <source>&amp;Fetch</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="63"/>
+        <source>&amp;Get</source>
+        <translation type="obsolete">取得</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="78"/>
         <source>&amp;Help</source>
         <translation type="unfinished">ヘルプ</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="95"/>
+        <location filename="../src/mainwindow.cpp" line="110"/>
         <source>connectToIrcServer</source>
         <translation type="unfinished">IRCサーバへの接続</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="95"/>
+        <location filename="../src/mainwindow.cpp" line="110"/>
         <source>I connect to the IRC server</source>
         <translation type="unfinished">IRCサーバへ接続します</translation>
     </message>
@@ -92,12 +101,12 @@
         <translation type="obsolete">バージョン情報を取得します</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="117"/>
+        <location filename="../src/mainwindow.cpp" line="157"/>
         <source>About BCDice IRC</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="117"/>
+        <location filename="../src/mainwindow.cpp" line="157"/>
         <source>about-app-text</source>
         <translation type="unfinished">&lt;h1&gt;BCDice IRC&lt;/h1&gt;
 &lt;p&gt;&amp;copy; BCDice Project&lt;/p&gt;
