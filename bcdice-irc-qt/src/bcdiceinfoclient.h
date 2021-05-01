@@ -21,6 +21,7 @@ class BCDiceInfoClient {
 public:
   BCDiceInfoClient(std::shared_ptr<Channel> channel);
   StatusWith<BCDiceVersionInfo> getBCDiceVersionInfo();
+  std::pair<bool, Status> stop();
 
 private:
   std::unique_ptr<BCDiceInfoService::Stub> stub_;

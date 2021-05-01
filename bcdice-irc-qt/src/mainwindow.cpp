@@ -37,6 +37,10 @@ MainWindow::~MainWindow() {
   delete ui;
 }
 
+void MainWindow::closeEvent(QCloseEvent*) {
+  stopServer();
+}
+
 void MainWindow::createActions() {
   getVersionInformationAction_ = new QAction{tr("&Version Information"), this};
   connect(getVersionInformationAction_,
@@ -59,6 +63,31 @@ void MainWindow::createMenus() {
   helpMenu_ = menuBar()->addMenu(tr("&Help"));
   helpMenu_->addAction(aboutAppAction_);
   helpMenu_->addAction(aboutQtAction_);
+}
+
+void MainWindow::stopServer() {
+  auto channel =
+      grpc::CreateChannel(GRPCServerHost, grpc::InsecureChannelCredentials());
+  BCDiceInfoClient client{channel};
+
+  auto [ok, status] = client.stop();
+
+  if (ok) {
+    qDebug() << "Stopped gRPC server.";
+    return;
+  }
+
+  if (!status.ok()) {
+    std::stringstream ss;
+
+    ss << __func__ << ": [" << status.error_code() << "] "
+       << status.error_message();
+    qWarning() << ss.str().c_str();
+
+    return;
+  }
+
+  qWarning() << "An error occurred on stopping gRPC server.";
 }
 
 void MainWindow::connectToIrcServer() {
