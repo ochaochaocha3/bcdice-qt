@@ -1,3 +1,3 @@
-[submodule "bcdice-irc-server/vendor/bcdice"]
-	path = bcdice-irc-server/vendor/bcdice
+[submodule "bcdice-irc-bot/vendor/bcdice"]
+	path = bcdice-irc-bot/vendor/bcdice
 	url = https://github.com/bcdice/BCDice.git
