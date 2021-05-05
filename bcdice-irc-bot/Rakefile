@@ -88,4 +88,15 @@ task :archive, [:t] do |_t, args|
   end
 end
 
+desc 'Windows用の実行ファイルを作成する'
+task :ocra do
+  cd('exe') do
+    sh('ocra --dll ruby_builtin_dlls\libssp-0.dll ' \
+       '--dll ruby_builtin_dlls\libgmp-10.dll ' \
+       '--dll ruby_builtin_dlls\libssl-1_1-x64.dll ' \
+       '--dll ruby_builtin_dlls\libcrypto-1_1-x64.dll '\
+       'bcdice-irc-server.rb')
+  end
+end
+
 task default: :test

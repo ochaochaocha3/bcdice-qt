@@ -14,6 +14,8 @@ gem 'activesupport'
 gem 'grpc'
 gem 'grpc-tools'
 
+gem 'ocra', platforms: :x64_mingw
+
 group :development, :test do
   gem 'rake'
 end

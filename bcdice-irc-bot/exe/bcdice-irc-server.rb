@@ -18,7 +18,9 @@ dirs.each do |dir|
   $LOAD_PATH.unshift(dir) unless $LOAD_PATH.include?(dir)
 end
 
-require 'bundler/setup'
+if !defined?(Ocra) && !ENV['OCRA_EXECUTABLE']
+  require 'bundler/setup'
+end
 
 require 'logger'
 require 'optparse'
@@ -63,6 +65,8 @@ end
 server = GRPC::RpcServer.new
 server.add_http2_port(host, :this_port_is_insecure)
 server.handle(BCDiceIRC::RPC::BCDiceInfoService.new(server))
+
+exit if defined?(Ocra)
 
 GRPC.logger.info("Running on #{host}")
 
