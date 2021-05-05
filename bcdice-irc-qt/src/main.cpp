@@ -1,6 +1,9 @@
 #include "mainwindow.h"
 
 #include <QApplication>
+#include <QDebug>
+#include <QList>
+#include <QObject>
 #include <QTranslator>
 
 #include <algorithm>
@@ -8,7 +11,20 @@
 #include <memory>
 #include <vector>
 
+#include <grpcpp/grpcpp.h>
+
+#include "bcdiceversioninfo.h"
+#include "gamesystem.h"
+
+Q_DECLARE_METATYPE(grpc::Status);
+
+namespace {
+void registerMetaTypes();
+}
+
 int main(int argc, char* argv[]) {
+  registerMetaTypes();
+
   QApplication a{argc, argv};
 
   const char* translationFiles[] = {
@@ -36,3 +52,12 @@ int main(int argc, char* argv[]) {
 
   return a.exec();
 }
+
+namespace {
+void registerMetaTypes() {
+  qRegisterMetaType<grpc::Status>();
+  qRegisterMetaType<BCDiceVersionInfo>();
+  qRegisterMetaType<GameSystem>();
+  qRegisterMetaType<QList<GameSystem>>();
+}
+} // namespace

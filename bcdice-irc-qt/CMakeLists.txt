@@ -113,11 +113,13 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         ${QRC_FILES}
     )
 else()
-  add_executable(${APP_NAME}
+    qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR}/translations ${SRC_FILES} ${TS_FILES})
+    add_executable(${APP_NAME}
         ${PROJECT_SOURCES}
+        ${QM_FILES}
+        ${QT_QM_FILES}
+        ${QRC_FILES}
     )
-
-    qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 endif()
 
 target_link_libraries(${APP_NAME}

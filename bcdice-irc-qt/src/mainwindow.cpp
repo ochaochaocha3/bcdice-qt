@@ -9,11 +9,13 @@
 #include <QAction>
 #include <QApplication>
 #include <QByteArray>
+#include <QDebug>
 #include <QDesktopServices>
 #include <QDir>
 #include <QFileInfo>
 #include <QMenuBar>
 #include <QMessageBox>
+#include <QObject>
 #include <QProcess>
 #include <QSettings>
 #include <QString>
@@ -69,7 +71,7 @@ MainWindow::MainWindow(QWidget* parent)
           this,
           &MainWindow::connectToIrcServer);
   connect(ui->gameSystemComboBox,
-          &QComboBox::currentIndexChanged,
+          qOverload<int>(&QComboBox::currentIndexChanged),
           this,
           &MainWindow::updateHelpMessage);
 
@@ -146,7 +148,7 @@ void MainWindow::connectServerProcessSignals() {
           this,
           &MainWindow::onGrpcServerProcessError);
   connect(&serverProcess_,
-          &QProcess::finished,
+          qOverload<int, QProcess::ExitStatus>(&QProcess::finished),
           this,
           &MainWindow::onGrpcServerFinished);
   /*
@@ -315,7 +317,7 @@ void MainWindow::startGrpcServer(QString fileName) {
   QString workingDirectory = fileInfo.dir().absolutePath();
   serverProcess_.setWorkingDirectory(workingDirectory);
 
-  serverProcess_.start(fileName);
+  serverProcess_.start(fileName, QStringList{});
 }
 
 void MainWindow::onGrpcServerStarted() {
