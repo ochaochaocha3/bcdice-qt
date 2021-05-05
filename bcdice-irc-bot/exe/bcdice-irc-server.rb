@@ -56,6 +56,10 @@ end
 
 opts.parse!
 
+unless $stdout.isatty
+  $stdout.sync = true
+end
+
 server = GRPC::RpcServer.new
 server.add_http2_port(host, :this_port_is_insecure)
 server.handle(BCDiceIRC::RPC::BCDiceInfoService.new(server))
