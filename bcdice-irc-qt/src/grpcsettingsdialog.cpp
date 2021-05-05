@@ -8,9 +8,11 @@
 #include <QLineEdit>
 #include <QPixmap>
 #include <QPushButton>
+#include <QSettings>
 #include <QStyle>
 
 #include "mainwindow.h"
+#include "settings.h"
 
 namespace {
 constexpr QSize IconSize{16, 16};
@@ -49,6 +51,10 @@ GrpcSettingsDialog::~GrpcSettingsDialog() {
   delete ui;
 }
 
+void GrpcSettingsDialog::setFileName(const QString& fileName) {
+  ui->grpcServerLineEdit->setText(fileName);
+}
+
 void GrpcSettingsDialog::chooseGrpcServer() {
   QString fileName =
       QFileDialog::getOpenFileName(this, tr("Choose BCDice gRPC Server"));
@@ -56,10 +62,10 @@ void GrpcSettingsDialog::chooseGrpcServer() {
     return;
   }
 
-  ui->grpcServerLineEdit->setText(fileName);
+  setFileName(fileName);
 }
 
-void GrpcSettingsDialog::updateFileInfo(QString fileName) {
+void GrpcSettingsDialog::updateFileInfo(const QString& fileName) {
   if (fileName.isEmpty()) {
     connectButton_->setEnabled(false);
     ui->fileInfoIconLabel->setPixmap(warningIconPixmap_);
@@ -102,6 +108,16 @@ void GrpcSettingsDialog::showCanStartGrpcServer(const QString& message) {
 }
 
 void GrpcSettingsDialog::startGrpcServer() {
-  mainWindow_->setGrpcServerPath(ui->grpcServerLineEdit->text());
+  using BCDiceIRCQt::KeyGrpcServerPath;
+  using BCDiceIRCQt::SettingsApp;
+  using BCDiceIRCQt::SettingsOrg;
+
+  QString grpcServerPath = ui->grpcServerLineEdit->text();
+
+  mainWindow_->setGrpcServerPath(grpcServerPath);
+
+  QSettings settings{SettingsOrg, SettingsApp};
+  settings.setValue(KeyGrpcServerPath, grpcServerPath);
+
   accept();
 }

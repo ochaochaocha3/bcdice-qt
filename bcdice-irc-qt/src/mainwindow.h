@@ -55,6 +55,9 @@ private slots:
   /** gRPCサーバに接続する。 */
   void connectToGrpcServer();
 
+  /** 起動時にgRPCサーバへの接続を試みる。 */
+  void tryConnectToGrpcServerOnStartUp();
+
   void stopServer();
   void connectToIrcServer();
 
@@ -95,6 +98,9 @@ private:
   updateVersionInfoLabel(const std::optional<BCDiceVersionInfo>& versionInfo);
 
   void updateGameSystemComboBox(const QList<GameSystem>& gameSystems);
+
+  /** 保存された設定を読み込む。 */
+  void loadSettings();
 
   /**
    * @brief BCDiceのgRPCサーバを起動する。

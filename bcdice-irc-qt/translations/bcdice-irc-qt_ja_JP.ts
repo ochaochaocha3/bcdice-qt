@@ -19,37 +19,37 @@
         <translation>選択...</translation>
     </message>
     <message>
-        <location filename="../src/grpcsettingsdialog.cpp" line="30"/>
+        <location filename="../src/grpcsettingsdialog.cpp" line="32"/>
         <source>Connect</source>
         <translation>接続</translation>
     </message>
     <message>
-        <location filename="../src/grpcsettingsdialog.cpp" line="54"/>
+        <location filename="../src/grpcsettingsdialog.cpp" line="60"/>
         <source>Choose BCDice gRPC Server</source>
         <translation>BCDice gRPCサーバの選択</translation>
     </message>
     <message>
-        <location filename="../src/grpcsettingsdialog.cpp" line="67"/>
+        <location filename="../src/grpcsettingsdialog.cpp" line="73"/>
         <source>Please input the path to BCDice gRPC server.</source>
         <translation>BCDice gRPCサーバのパスを入力してください。</translation>
     </message>
     <message>
-        <location filename="../src/grpcsettingsdialog.cpp" line="75"/>
+        <location filename="../src/grpcsettingsdialog.cpp" line="81"/>
         <source>The specified file does not exist.</source>
         <translation>指定されたファイルは存在しません。</translation>
     </message>
     <message>
-        <location filename="../src/grpcsettingsdialog.cpp" line="80"/>
+        <location filename="../src/grpcsettingsdialog.cpp" line="86"/>
         <source>The specified item is not a file.</source>
         <translation>指定された項目はファイルではありません。</translation>
     </message>
     <message>
-        <location filename="../src/grpcsettingsdialog.cpp" line="85"/>
+        <location filename="../src/grpcsettingsdialog.cpp" line="91"/>
         <source>The specified file is not executable.</source>
         <translation>指定されたファイルは実行できません。</translation>
     </message>
     <message>
-        <location filename="../src/grpcsettingsdialog.cpp" line="89"/>
+        <location filename="../src/grpcsettingsdialog.cpp" line="95"/>
         <source>The specified file is executable.</source>
         <translation>指定されたファイルは実行可能です。</translation>
     </message>
@@ -63,7 +63,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="42"/>
-        <location filename="../src/mainwindow.cpp" line="113"/>
+        <location filename="../src/mainwindow.cpp" line="120"/>
         <source>Connect to gRPC Server</source>
         <translation>gRPCサーバへ接続</translation>
     </message>
@@ -84,7 +84,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="127"/>
-        <location filename="../src/mainwindow.cpp" line="169"/>
+        <location filename="../src/mainwindow.cpp" line="176"/>
         <source>Connect</source>
         <translation>接続</translation>
     </message>
@@ -108,32 +108,32 @@
         <translation type="obsolete">バージョン情報</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="107"/>
+        <location filename="../src/mainwindow.cpp" line="114"/>
         <source>Connecting to gRPC Server</source>
         <translation>gRPCサーバに接続中</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="108"/>
+        <location filename="../src/mainwindow.cpp" line="115"/>
         <source>Please wait to connect to the gRPC server.</source>
         <translation>gRPCサーバに接続するまでお待ちください。</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="123"/>
+        <location filename="../src/mainwindow.cpp" line="130"/>
         <source>About BCDice IRC Qt</source>
         <translation>BCDice IRC Qtについて</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="261"/>
+        <location filename="../src/mainwindow.cpp" line="292"/>
         <source>About BCDice IRC</source>
         <translation>BCDice IRCについて</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="413"/>
+        <location filename="../src/mainwindow.cpp" line="444"/>
         <source>Failed to Fetch BCDice Information</source>
         <translation>BCDiceの情報取得失敗</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="414"/>
+        <location filename="../src/mainwindow.cpp" line="445"/>
         <source>Failed to fetch BCDice information.</source>
         <translation>BCDiceの情報取得に失敗しました。</translation>
     </message>
@@ -142,7 +142,7 @@
         <translation type="obsolete">&amp;Qt について</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="114"/>
+        <location filename="../src/mainwindow.cpp" line="121"/>
         <source>Disconnect from gRPC Server</source>
         <translation>gRPCサーバから切断</translation>
     </message>
@@ -151,17 +151,17 @@
         <translation type="obsolete">取得</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="128"/>
+        <location filename="../src/mainwindow.cpp" line="135"/>
         <source>&amp;Help</source>
         <translation>ヘルプ</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="257"/>
+        <location filename="../src/mainwindow.cpp" line="288"/>
         <source>connectToIrcServer</source>
         <translation>IRCサーバへの接続</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="257"/>
+        <location filename="../src/mainwindow.cpp" line="288"/>
         <source>I connect to the IRC server</source>
         <translation>IRCサーバへ接続します</translation>
     </message>
@@ -174,7 +174,7 @@
         <translation type="obsolete">バージョン情報を取得します</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="261"/>
+        <location filename="../src/mainwindow.cpp" line="292"/>
         <source>about-app-text</source>
         <translation>&lt;h1&gt;BCDice IRC&lt;/h1&gt;
 &lt;p&gt;&amp;copy; BCDice Project&lt;/p&gt;

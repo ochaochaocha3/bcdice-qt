@@ -18,6 +18,9 @@ public:
   explicit GrpcSettingsDialog(MainWindow* mainWindow);
   ~GrpcSettingsDialog();
 
+  /** gRPCサーバプログラム欄を設定する。 */
+  void setFileName(const QString& fileName);
+
 private slots:
   /** gRPCサーバプログラムを選択するダイアログを表示する。 */
   void chooseGrpcServer();
@@ -28,7 +31,7 @@ private slots:
    * 選択されたファイルが実行可能かに応じて接続ボタンを更新する。
    * @param fileName 入力されたファイル名。
    */
-  void updateFileInfo(QString fileName);
+  void updateFileInfo(const QString& fileName);
 
 private:
   MainWindow* mainWindow_;

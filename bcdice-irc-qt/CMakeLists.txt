@@ -45,6 +45,8 @@ set(SRC_FILES
         src/gamesystem.h
         src/bcdiceinformationfetch.cpp
         src/bcdiceinformationfetch.h
+        src/settings.cpp
+        src/settings.h
 )
 
 set(PROJECT_SOURCES

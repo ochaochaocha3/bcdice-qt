@@ -15,6 +15,7 @@
 #include <QMenuBar>
 #include <QMessageBox>
 #include <QProcess>
+#include <QSettings>
 #include <QString>
 #include <QStringList>
 #include <QThread>
@@ -27,11 +28,15 @@
 #include "bcdiceinformationfetch.h"
 #include "gamesystem.h"
 #include "grpcsettingsdialog.h"
+#include "settings.h"
 
 namespace {
 const char* GRPCServerHost = "localhost:50051";
 constexpr int ProcessWaitTimeMs = 3000;
 } // namespace
+
+using BCDiceIRCQt::SettingsApp;
+using BCDiceIRCQt::SettingsOrg;
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow{parent}, gRPCSettingsDialog_{new GrpcSettingsDialog{this}},
@@ -71,8 +76,10 @@ MainWindow::MainWindow(QWidget* parent)
   serverProcess_.setProcessChannelMode(QProcess::ForwardedChannels);
   connectServerProcessSignals();
 
+  loadSettings();
+
   // 表示直後にgRPCサーバへの接続ウィンドウを表示する
-  QTimer::singleShot(0, this, &MainWindow::connectToGrpcServer);
+  QTimer::singleShot(0, this, &MainWindow::tryConnectToGrpcServerOnStartUp);
 }
 
 MainWindow::~MainWindow() {
@@ -204,6 +211,30 @@ void MainWindow::updateVersionInfoLabel(
      << copyright;
 
   ui->versionLabel->setText(ss.str().c_str());
+}
+
+void MainWindow::loadSettings() {
+  using BCDiceIRCQt::KeyGrpcServerPath;
+
+  QSettings settings{SettingsOrg, SettingsApp};
+
+  grpcServerPath_ = settings.value(KeyGrpcServerPath).toString();
+  gRPCSettingsDialog_->setFileName(grpcServerPath_);
+}
+
+void MainWindow::tryConnectToGrpcServerOnStartUp() {
+  if (grpcServerPath_.isEmpty()) {
+    connectToGrpcServer();
+    return;
+  }
+
+  QFileInfo fileInfo{grpcServerPath_};
+  if (!fileInfo.isExecutable()) {
+    connectToGrpcServer();
+    return;
+  }
+
+  startGrpcServer(grpcServerPath_);
 }
 
 void MainWindow::stopServer() {
