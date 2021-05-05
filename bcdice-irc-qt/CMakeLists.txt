@@ -22,6 +22,10 @@ set(TS_FILES
         translations/bcdice-irc-qt_ja_JP.ts
 )
 
+set(QT_QM_FILES
+        translations/qtbase_ja.qm
+)
+
 set(QRC_FILES
         translations.qrc
 )
@@ -31,11 +35,16 @@ set(SRC_FILES
         src/mainwindow.cpp
         src/mainwindow.h
         src/mainwindow.ui
+        src/grpcsettingsdialog.cpp
+        src/grpcsettingsdialog.h
+        src/grpcsettingsdialog.ui
         src/bcdiceinfoclient.cpp
         src/bcdiceinfoclient.h
         src/bcdiceversioninfo.h
         src/gamesystem.cpp
         src/gamesystem.h
+        src/bcdiceinformationfetch.cpp
+        src/bcdiceinformationfetch.h
 )
 
 set(PROJECT_SOURCES
@@ -98,6 +107,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(${APP_NAME}
         ${PROJECT_SOURCES}
         ${QM_FILES}
+        ${QT_QM_FILES}
         ${QRC_FILES}
     )
 else()

@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="/">
     <file>translations/bcdice-irc-qt_ja_JP.qm</file>
+    <file>translations/qtbase_ja.qm</file>
   </qresource>
 </RCC>
