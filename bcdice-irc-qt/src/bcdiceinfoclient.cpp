@@ -31,7 +31,7 @@ using std::chrono::system_clock;
 using std::chrono::time_point;
 
 namespace {
-constexpr int DeadlineMs = 200;
+constexpr int DeadlineMs = 1000;
 void setDeadline(ClientContext& context);
 
 QList<GameSystem>
