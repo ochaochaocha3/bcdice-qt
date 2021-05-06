@@ -11,3 +11,5 @@ doc/
 config/*.yaml
 
 /archive-*
+
+*.exe
